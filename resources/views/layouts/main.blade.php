@@ -21,7 +21,6 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet"/>
-
 </head>
 
 <body id="page-top">
@@ -43,7 +42,7 @@
 
         <!-- Nav Item - Employee Management -->
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/employees">
                 <span>Employee Management</span></a>
         </li>
 
