@@ -29,7 +29,7 @@
                             </form>
                         </div>
                         <div>
-                            <a href="" class="btn btn-primary mb-2 float-right">Create</a>
+                            <router-link :to="{ name: 'EmployeesCreate'}" class="btn btn-primary mb-2 float-right">Create</router-link>
                         </div>
                     </div>
                 </div>
@@ -38,14 +38,18 @@
                         <thead>
                         <tr>
                             <th scope="col">#ID</th>
-                            <th scope="col">Country Code</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Department</th>
                             <th scope="col">Manage</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td scope="row"></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td><a href="">Edit</a>
