@@ -13,6 +13,7 @@ class StateController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -20,7 +21,7 @@ class StateController extends Controller
         $states=State::all();
 
         if($request->has('search')){
-            $states=State::where('country_id','like',"%{$request->search}%")->orwhere('name','like',"%{$request->search}%")->get();
+            $states=State::where('name','like',"%{$request->search}%")->get();
         }
         return view('states.index', compact('states'));
     }
@@ -52,7 +53,7 @@ class StateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Country  $state
      * @return \Illuminate\Http\Response
      */
     public function edit(State $state)
