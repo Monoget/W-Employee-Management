@@ -40,8 +40,8 @@
                     <thead>
                     <tr>
                         <th scope="col">#ID</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Country Code</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Manage</th>
                     </tr>
                     </thead>
@@ -51,7 +51,7 @@
                             <td scope="row">{{ $state->id }}</td>
                             <td>{{ $state->country->country_code }}</td>
                             <td>{{ $state->name }}</td>
-                            <td><a href="{{ route('users.edit', $state->id) }}">Edit</a>
+                            <td><a href="{{ route('states.edit', $state->id) }}">Edit</a>
                             </td>
                         </tr>
                     @endforeach

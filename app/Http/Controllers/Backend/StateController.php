@@ -50,17 +50,6 @@ class StateController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -68,29 +57,36 @@ class StateController extends Controller
      */
     public function edit(State $state)
     {
-        return view('states.edit',compact('state'));
+        $countries=Country::all();
+        return view('states.edit',compact('state', 'countries'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\StateStoreRequest  $request
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StateStoreRequest $request, State $state)
     {
-        //
+        $state->update([
+            'country_id'=>$request->country_id,
+            'name'=>$request->name,
+        ]);
+
+        return redirect()->route('states.index')->with('message','State Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(State $state)
     {
-        //
+        $state->delete();
+        return redirect()->route('states.index')->with('message','State Delete Successfully');
     }
 }
