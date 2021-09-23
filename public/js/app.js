@@ -2227,6 +2227,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2236,8 +2245,21 @@ __webpack_require__.r(__webpack_exports__);
     return {
       countries: [],
       states: [],
+      departments: [],
       cities: [],
-      departments: []
+      form: {
+        first_name: "",
+        last_name: "",
+        middle_name: "",
+        address: "",
+        country_id: "",
+        state_id: "",
+        department_id: "",
+        city_id: "",
+        zip_code: "",
+        birthdate: null,
+        date_hired: null
+      }
     };
   },
   created: function created() {
@@ -2249,6 +2271,24 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/employees/countries").then(function (res) {
         _this.countries = res.data;
+      })["catch"](function (error) {
+        console.log(console.error);
+      });
+    },
+    getStates: function getStates() {
+      var _this2 = this;
+
+      axios.get("/api/employees/" + this.form.country_id + "/states").then(function (res) {
+        _this2.states = res.data;
+      })["catch"](function (error) {
+        console.log(console.error);
+      });
+    },
+    getCities: function getCities() {
+      var _this3 = this;
+
+      axios.get("/api/employees/" + this.form.state_id + "/cities").then(function (res) {
+        _this3.cities = res.data;
       })["catch"](function (error) {
         console.log(console.error);
       });
@@ -38078,7 +38118,7 @@ var render = function() {
                     "label",
                     {
                       staticClass: "col-md-4 col-form-label text-md-right",
-                      attrs: { for: "country" }
+                      attrs: { for: "country_id" }
                     },
                     [_vm._v("Country")]
                   ),
@@ -38087,11 +38127,43 @@ var render = function() {
                     _c(
                       "select",
                       {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.country_id,
+                            expression: "form.country_id"
+                          }
+                        ],
                         staticClass: "form-control",
                         attrs: {
-                          id: "country",
-                          name: "country",
+                          id: "country_id",
+                          name: "country_id",
                           "aria-label": "Default select example"
+                        },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "country_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              return _vm.getStates()
+                            }
+                          ]
                         }
                       },
                       _vm._l(_vm.countries, function(country) {
@@ -38112,11 +38184,144 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-4 col-form-label text-md-right",
+                      attrs: { for: "state_id" }
+                    },
+                    [_vm._v("State")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.state_id,
+                            expression: "form.state_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "state_id",
+                          name: "state_id",
+                          "aria-label": "Default select example"
+                        },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "state_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              return _vm.getCities()
+                            }
+                          ]
+                        }
+                      },
+                      _vm._l(_vm.states, function(state) {
+                        return _c(
+                          "option",
+                          { key: state.id, domProps: { value: state.id } },
+                          [
+                            _vm._v(
+                              "\n                                            " +
+                                _vm._s(state.name) +
+                                "\n                                        "
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-4 col-form-label text-md-right",
+                      attrs: { for: "city_id" }
+                    },
+                    [_vm._v("City")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.city_id,
+                            expression: "form.city_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "city_id",
+                          name: "city_id",
+                          "aria-label": "Default select example"
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "city_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.cities, function(city) {
+                        return _c(
+                          "option",
+                          { key: city.id, domProps: { value: city.id } },
+                          [
+                            _vm._v(
+                              "\n                                            " +
+                                _vm._s(city.name) +
+                                "\n                                        "
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
                 _vm._m(6),
-                _vm._v(" "),
-                _vm._m(7),
-                _vm._v(" "),
-                _vm._m(8),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
                   _c(
@@ -38168,7 +38373,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(9)
+                _vm._m(7)
               ])
             ])
           ])
@@ -38291,7 +38496,7 @@ var staticRenderFns = [
         "label",
         {
           staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "department" }
+          attrs: { for: "department_id" }
         },
         [_vm._v("Department")]
       ),
@@ -38302,76 +38507,8 @@ var staticRenderFns = [
           {
             staticClass: "form-control",
             attrs: {
-              id: "department",
-              name: "department",
-              "aria-label": "Default select example"
-            }
-          },
-          [
-            _c("option", { attrs: { selected: "" } }, [
-              _vm._v("Open this select menu")
-            ])
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "state" }
-        },
-        [_vm._v("State")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: {
-              id: "state",
-              name: "state",
-              "aria-label": "Default select example"
-            }
-          },
-          [
-            _c("option", { attrs: { selected: "" } }, [
-              _vm._v("Open this select menu")
-            ])
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "city" }
-        },
-        [_vm._v("City")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "select",
-          {
-            staticClass: "form-control",
-            attrs: {
-              id: "city",
-              name: "city",
+              id: "department_id",
+              name: "department_id",
               "aria-label": "Default select example"
             }
           },

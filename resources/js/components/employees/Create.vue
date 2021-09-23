@@ -64,11 +64,11 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="department"
+                                    <label for="department_id"
                                            class="col-md-4 col-form-label text-md-right">Department</label>
 
                                     <div class="col-md-6">
-                                        <select id="department" class="form-control" name="department"
+                                        <select id="department_id" class="form-control" name="department_id"
                                                 aria-label="Default select example">
                                             <option selected>Open this select menu</option>
                                         </select>
@@ -76,11 +76,13 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="country"
+                                    <label for="country_id"
                                            class="col-md-4 col-form-label text-md-right">Country</label>
 
                                     <div class="col-md-6">
-                                        <select id="country" class="form-control" name="country"
+                                        <select id="country_id" class="form-control" name="country_id"
+                                                v-model="form.country_id"
+                                                @change="getStates()"
                                                 aria-label="Default select example">
                                             <option v-for="country in countries" :key="country.id" :value="country.id">
                                                 {{ country.name }}
@@ -90,25 +92,32 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="state"
+                                    <label for="state_id"
                                            class="col-md-4 col-form-label text-md-right">State</label>
 
                                     <div class="col-md-6">
-                                        <select id="state" class="form-control" name="state"
+                                        <select id="state_id" class="form-control" name="state_id"
+                                                v-model="form.state_id"
+                                                @change="getCities()"
                                                 aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
+                                            <option v-for="state in states" :key="state.id" :value="state.id">
+                                                {{ state.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="city"
+                                    <label for="city_id"
                                            class="col-md-4 col-form-label text-md-right">City</label>
 
                                     <div class="col-md-6">
-                                        <select id="city" class="form-control" name="city"
+                                        <select id="city_id" class="form-control" name="city_id"
+                                                v-model="form.city_id"
                                                 aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
+                                            <option v-for="city in cities" :key="city.id" :value="city.id">
+                                                {{ city.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -170,9 +179,22 @@ export default {
         return {
             countries: [],
             states: [],
+            departments: [],
             cities: [],
-            departments: []
-        }
+            form: {
+                first_name: "",
+                last_name: "",
+                middle_name: "",
+                address: "",
+                country_id: "",
+                state_id: "",
+                department_id: "",
+                city_id: "",
+                zip_code: "",
+                birthdate: null,
+                date_hired: null
+            }
+        };
     },
     created() {
         this.getCountries();
@@ -183,6 +205,26 @@ export default {
                 .get("/api/employees/countries")
                 .then(res => {
                     this.countries = res.data;
+                })
+                .catch(error => {
+                    console.log(console.error);
+                });
+        },
+        getStates() {
+            axios
+                .get("/api/employees/" + this.form.country_id + "/states")
+                .then(res => {
+                    this.states = res.data;
+                })
+                .catch(error => {
+                    console.log(console.error);
+                });
+        },
+        getCities() {
+            axios
+                .get("/api/employees/" + this.form.state_id + "/cities")
+                .then(res => {
+                    this.cities = res.data;
                 })
                 .catch(error => {
                     console.log(console.error);
