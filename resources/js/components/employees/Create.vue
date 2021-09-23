@@ -13,7 +13,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form method="POST">
+                            <form @submit.prevent="storeEmployee">
 
                                 <div class="form-group row">
                                     <label for="first_name"
@@ -21,6 +21,7 @@
 
                                     <div class="col-md-6">
                                         <input id="first_name" type="text"
+                                               v-model="form.first_name"
                                                class="form-control"
                                                name="first_name"
                                         />
@@ -33,6 +34,7 @@
 
                                     <div class="col-md-6">
                                         <input id="middle_name" type="text"
+                                               v-model="form.middle_name"
                                                class="form-control"
                                                name="middle_name"
                                         />
@@ -45,6 +47,7 @@
 
                                     <div class="col-md-6">
                                         <input id="last_name" type="text"
+                                               v-model="form.last_name"
                                                class="form-control"
                                                name="last_name"
                                         />
@@ -57,6 +60,7 @@
 
                                     <div class="col-md-6">
                                         <input id="address" type="text"
+                                               v-model="form.address"
                                                class="form-control"
                                                name="address"
                                         />
@@ -69,8 +73,11 @@
 
                                     <div class="col-md-6">
                                         <select id="department_id" class="form-control" name="department_id"
+                                                v-model="form.department_id"
                                                 aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
+                                            <option v-for="department in departments" :key="department.id" :value="department.id">
+                                                {{ department.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -128,6 +135,7 @@
 
                                     <div class="col-md-6">
                                         <input id="zip_code" type="text"
+                                               v-model="form.zip_code"
                                                class="form-control"
                                                name="zip_code"
                                         />
@@ -139,7 +147,7 @@
                                            class="col-md-4 col-form-label text-md-right">Birth Date</label>
 
                                     <div class="col-md-6">
-                                        <datepicker id="birthdate" input-class="form-control"></datepicker>
+                                        <datepicker id="birthdate" v-model="form.birthdate" input-class="form-control"></datepicker>
                                     </div>
                                 </div>
 
@@ -148,7 +156,7 @@
                                            class="col-md-4 col-form-label text-md-right">Hired Date</label>
 
                                     <div class="col-md-6">
-                                        <datepicker id="date_hired" input-class="form-control"></datepicker>
+                                        <datepicker id="date_hired" v-model="form.date_hired" input-class="form-control"></datepicker>
                                     </div>
                                 </div>
 
@@ -170,6 +178,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker';
+import moment from 'moment';
 
 export default {
     components: {
@@ -198,6 +207,7 @@ export default {
     },
     created() {
         this.getCountries();
+        this.getDepartments();
     },
     methods: {
         getCountries() {
@@ -229,6 +239,39 @@ export default {
                 .catch(error => {
                     console.log(console.error);
                 });
+        },
+        getDepartments() {
+            axios
+                .get("/api/employees/departments")
+                .then(res => {
+                    this.departments = res.data;
+                })
+                .catch(error => {
+                    console.log(console.error);
+                });
+        },
+        storeEmployee(){
+            axios
+                .post("/api/employees",{
+                    'first_name': this.form.first_name,
+                    'middle_name': this.form.middle_name,
+                    'last_name': this.form.last_name,
+                    'address': this.form.address,
+                    'country_id': this.form.country_id,
+                    'state_id': this.form.state_id,
+                    'city_id': this.form.city_id,
+                    'department_id': this.form.department_id,
+                    'zip_code': this.form.zip_code,
+                    'birthdate': this.format_date(this.form.birthdate),
+                    'date_hired': this.format_date(this.form.date_hired)
+                })
+            .then(res=>{
+                console.log(res);
+            });
+        }, format_date(value){
+            if(value){
+                return moment(String(value)).format('YYYY-MM-DD');
+            }
         }
     }
 }
