@@ -17,11 +17,11 @@ class EmployeeDataController extends Controller
 
     public function states(Country $country)
     {
-        return response()->json($country->states);
+        return response()->json($country->state);
     }
 
     public function cities(State $state)
     {
-        return response()->json($state->cities);
+        return response()->json($state->city);
     }
 }
