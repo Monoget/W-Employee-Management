@@ -2246,6 +2246,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2315,25 +2384,29 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     storeEmployee: function storeEmployee() {
+      var _this5 = this;
+
       axios.post("/api/employees", {
-        'first_name': this.form.first_name,
-        'middle_name': this.form.middle_name,
-        'last_name': this.form.last_name,
-        'address': this.form.address,
-        'country_id': this.form.country_id,
-        'state_id': this.form.state_id,
-        'city_id': this.form.city_id,
-        'department_id': this.form.department_id,
-        'zip_code': this.form.zip_code,
-        'birthdate': this.format_date(this.form.birthdate),
-        'date_hired': this.format_date(this.form.date_hired)
+        first_name: this.form.first_name,
+        middle_name: this.form.middle_name,
+        last_name: this.form.last_name,
+        address: this.form.address,
+        country_id: this.form.country_id,
+        state_id: this.form.state_id,
+        city_id: this.form.city_id,
+        department_id: this.form.department_id,
+        zip_code: this.form.zip_code,
+        birthdate: this.format_date(this.form.birthdate),
+        date_hired: this.format_date(this.form.date_hired)
       }).then(function (res) {
-        console.log(res);
+        _this5.$router.push({
+          name: "EmployeesIndex"
+        });
       });
     },
     format_date: function format_date(value) {
       if (value) {
-        return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format('YYYY-MM-DD');
+        return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format("YYYY-MM-DD");
       }
     }
   }
@@ -59555,8 +59628,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-8" }, [
@@ -59565,14 +59636,16 @@ var render = function() {
               "div",
               { staticClass: "card-header" },
               [
-                _vm._v("Create Employee\n                        "),
+                _vm._v(
+                  "\n                        Create Employees\n                        "
+                ),
                 _c(
                   "router-link",
                   {
                     staticClass: "float-right",
                     attrs: { to: { name: "EmployeesIndex" } }
                   },
-                  [_vm._v("Back")]
+                  [_vm._v("Back\n                        ")]
                 )
               ],
               1
@@ -59610,12 +59683,8 @@ var render = function() {
                             expression: "form.first_name"
                           }
                         ],
-                        staticClass: "form-control",
-                        attrs: {
-                          id: "first_name",
-                          type: "text",
-                          name: "first_name"
-                        },
+                        staticClass: "form-control ",
+                        attrs: { id: "first_name", type: "text", required: "" },
                         domProps: { value: _vm.form.first_name },
                         on: {
                           input: function($event) {
@@ -59653,11 +59722,11 @@ var render = function() {
                             expression: "form.middle_name"
                           }
                         ],
-                        staticClass: "form-control",
+                        staticClass: "form-control ",
                         attrs: {
                           id: "middle_name",
                           type: "text",
-                          name: "middle_name"
+                          required: ""
                         },
                         domProps: { value: _vm.form.middle_name },
                         on: {
@@ -59696,12 +59765,8 @@ var render = function() {
                             expression: "form.last_name"
                           }
                         ],
-                        staticClass: "form-control",
-                        attrs: {
-                          id: "last_name",
-                          type: "text",
-                          name: "last_name"
-                        },
+                        staticClass: "form-control ",
+                        attrs: { id: "last_name", type: "text", required: "" },
                         domProps: { value: _vm.form.last_name },
                         on: {
                           input: function($event) {
@@ -59735,8 +59800,8 @@ var render = function() {
                             expression: "form.address"
                           }
                         ],
-                        staticClass: "form-control",
-                        attrs: { id: "address", type: "text", name: "address" },
+                        staticClass: "form-control ",
+                        attrs: { id: "address", type: "text", required: "" },
                         domProps: { value: _vm.form.address },
                         on: {
                           input: function($event) {
@@ -59755,76 +59820,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "col-md-4 col-form-label text-md-right",
-                        attrs: { for: "department_id" }
-                      },
-                      [_vm._v("Department")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.department_id,
-                              expression: "form.department_id"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            id: "department_id",
-                            name: "department_id",
-                            "aria-label": "Default select example"
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "department_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(_vm.departments, function(department) {
-                          return _c(
-                            "option",
-                            {
-                              key: department.id,
-                              domProps: { value: department.id }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(department.name) +
-                                  "\n                                        "
-                              )
-                            ]
-                          )
-                        }),
-                        0
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group row" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-md-4 col-form-label text-md-right",
-                        attrs: { for: "country_id" }
+                        attrs: { for: "country" }
                       },
                       [_vm._v("Country")]
                     ),
@@ -59843,8 +59839,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            id: "country_id",
-                            name: "country_id",
+                            name: "country",
                             "aria-label": "Default select example"
                           },
                           on: {
@@ -59881,8 +59876,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                            " +
-                                  _vm._s(country.name) +
+                                _vm._s(country.name) +
                                   "\n                                        "
                               )
                             ]
@@ -59898,7 +59892,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "col-md-4 col-form-label text-md-right",
-                        attrs: { for: "state_id" }
+                        attrs: { for: "state" }
                       },
                       [_vm._v("State")]
                     ),
@@ -59917,8 +59911,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            id: "state_id",
-                            name: "state_id",
+                            name: "state",
                             "aria-label": "Default select example"
                           },
                           on: {
@@ -59952,8 +59945,7 @@ var render = function() {
                             { key: state.id, domProps: { value: state.id } },
                             [
                               _vm._v(
-                                "\n                                            " +
-                                  _vm._s(state.name) +
+                                _vm._s(state.name) +
                                   "\n                                        "
                               )
                             ]
@@ -59969,7 +59961,74 @@ var render = function() {
                       "label",
                       {
                         staticClass: "col-md-4 col-form-label text-md-right",
-                        attrs: { for: "city_id" }
+                        attrs: { for: "department" }
+                      },
+                      [_vm._v("Department")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.department_id,
+                              expression: "form.department_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            name: "department",
+                            "aria-label": "Default select example"
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "department_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.departments, function(department) {
+                          return _c(
+                            "option",
+                            {
+                              key: department.id,
+                              domProps: { value: department.id }
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(department.name) +
+                                  "\n                                        "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-md-4 col-form-label text-md-right",
+                        attrs: { for: "city" }
                       },
                       [_vm._v("City")]
                     ),
@@ -59988,8 +60047,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            id: "city_id",
-                            name: "city_id",
+                            name: "city",
                             "aria-label": "Default select example"
                           },
                           on: {
@@ -60018,8 +60076,7 @@ var render = function() {
                             { key: city.id, domProps: { value: city.id } },
                             [
                               _vm._v(
-                                "\n                                            " +
-                                  _vm._s(city.name) +
+                                _vm._s(city.name) +
                                   "\n                                        "
                               )
                             ]
@@ -60050,12 +60107,8 @@ var render = function() {
                             expression: "form.zip_code"
                           }
                         ],
-                        staticClass: "form-control",
-                        attrs: {
-                          id: "zip_code",
-                          type: "text",
-                          name: "zip_code"
-                        },
+                        staticClass: "form-control ",
+                        attrs: { id: "zip_code", type: "text", required: "" },
                         domProps: { value: _vm.form.zip_code },
                         on: {
                           input: function($event) {
@@ -60074,9 +60127,9 @@ var render = function() {
                       "label",
                       {
                         staticClass: "col-md-4 col-form-label text-md-right",
-                        attrs: { for: "birthdate" }
+                        attrs: { for: "zip_code" }
                       },
-                      [_vm._v("Birth Date")]
+                      [_vm._v("Birthdate")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -60084,10 +60137,7 @@ var render = function() {
                       { staticClass: "col-md-6" },
                       [
                         _c("datepicker", {
-                          attrs: {
-                            id: "birthdate",
-                            "input-class": "form-control"
-                          },
+                          attrs: { "input-class": "form-control" },
                           model: {
                             value: _vm.form.birthdate,
                             callback: function($$v) {
@@ -60106,9 +60156,9 @@ var render = function() {
                       "label",
                       {
                         staticClass: "col-md-4 col-form-label text-md-right",
-                        attrs: { for: "date_hired" }
+                        attrs: { for: "zip_code" }
                       },
-                      [_vm._v("Hired Date")]
+                      [_vm._v("Date Hired")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -60116,10 +60166,7 @@ var render = function() {
                       { staticClass: "col-md-6" },
                       [
                         _c("datepicker", {
-                          attrs: {
-                            id: "date_hired",
-                            "input-class": "form-control"
-                          },
+                          attrs: { "input-class": "form-control" },
                           model: {
                             value: _vm.form.date_hired,
                             callback: function($$v) {
@@ -60133,7 +60180,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm._m(0)
                 ]
               )
             ])
@@ -60148,23 +60195,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "d-sm-flex align-items-center justify-content-between mb-4"
-      },
-      [
-        _c("h1", { staticClass: "h3 mb-0 text-gray-800" }, [
-          _vm._v("Employees")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-0" }, [
+    return _c("div", { staticClass: "form-group row mb-0 mt-4" }, [
       _c("div", { staticClass: "col-md-6 offset-md-4" }, [
         _c(
           "button",

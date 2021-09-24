@@ -35,7 +35,7 @@ class EmployeeController extends Controller
      * @param \App\Http\Requests\EmployeeStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeStoreRequest $request)
     {
         $employee = Employee::create($request->validated());
 
