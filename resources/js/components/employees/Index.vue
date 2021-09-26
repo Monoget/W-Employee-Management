@@ -29,7 +29,9 @@
                             </form>
                         </div>
                         <div>
-                            <router-link :to="{ name: 'EmployeesCreate'}" class="btn btn-primary mb-2 float-right">Create</router-link>
+                            <router-link :to="{ name: 'EmployeesCreate'}" class="btn btn-primary mb-2 float-right">
+                                Create
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -46,13 +48,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td scope="row"></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><a href="">Edit</a>
+                        <tr v-for="employee in employees" :key="employee.id">
+                            <td scope="row">#{{ employee.id }}</td>
+                            <td>{{ employee.first_name }}</td>
+                            <td>{{ employee.last_name }}</td>
+                            <td>{{ employee.address }}</td>
+                            <td>{{ employee.department[0].name }}</td>
+                            <td>
+                                <a href="">Edit</a>
                             </td>
                         </tr>
                         </tbody>
@@ -65,7 +68,24 @@
 
 <script>
 export default {
-
+    data() {
+        return {
+            employees: []
+        }
+    },
+    created() {
+        this.getEmployees();
+    },
+    methods: {
+        getEmployees() {
+            axios.get("api/employees")
+                .then(res => {
+                    this.employees = res.data.data
+                }).catch(error => {
+                console.log(error);
+            })
+        }
+    }
 }
 </script>
 
