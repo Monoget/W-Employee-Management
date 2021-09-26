@@ -6,11 +6,10 @@
         </div>
         <div class="row">
             <div class="card mx-auto">
-                <div>
-
+                <div v-if="showMessage">
                     <div class="alert alert-success">
+                        {{ message }}
                     </div>
-
                 </div>
                 <div class="card-header">
                     <div class="row">
@@ -55,7 +54,13 @@
                             <td>{{ employee.address }}</td>
                             <td>{{ employee.department[0].name }}</td>
                             <td>
-                                <a href="">Edit</a>
+                                <router-link :to="{ name: 'EmployeesEdit', params: { id: employee.id }}"
+                                             class="btn btn-success mb-2">
+                                    Edit
+                                </router-link>
+                                <button class="btn btn-danger mb-2" @click="deleteEmployee(employee.id)">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -70,7 +75,9 @@
 export default {
     data() {
         return {
-            employees: []
+            employees: [],
+            showMessage: false,
+            message: ''
         }
     },
     created() {
@@ -84,6 +91,14 @@ export default {
                 }).catch(error => {
                 console.log(error);
             })
+        },
+        deleteEmployee(id) {
+            axios.delete("api/employees/" + id)
+            .then(res=>{
+                this.showMessage=true;
+                this.message=res.data;
+                this.getEmployees();
+            });
         }
     }
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Department;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EmployeeResource extends JsonResource
+class EmployeeSingleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,7 +23,7 @@ class EmployeeResource extends JsonResource
             'country_id' => $this->country_id,
             'state_id' => $this->state_id,
             'city_id' => $this->city_id,
-            'department' => Department::where('id','=',$this->department_id)->get(),
+            'department_id' => $this->department_id,
             'zip_code' => $this->zip_code,
             'birthdate' => $this->birthdate,
             'date_hired' => $this->date_hired,
