@@ -17,12 +17,27 @@
                             <form>
                                 <div class="form-row align-items-center">
                                     <div class="col">
-                                        <input type="search" name="search" class="form-control mb-2"
-                                               id="inlineFormInput"
+                                        <input type="search" v-model.lazy="search" class="form-control mb-2"
                                                placeholder="Search..">
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary mb-2">Search</button>
+                                    </div>
+                                    <div class="col">
+                                        <select
+                                            v-model="selectedDepartment"
+                                            name="department"
+                                            class="form-control"
+                                            aria-label="Default select example"
+                                        >
+                                            <option
+                                                v-for="department in departments"
+                                                :key="department.id"
+                                                :value="department.id"
+                                            >{{ department.name }}
+                                            </option
+                                            >
+                                        </select>
                                     </div>
                                 </div>
                             </form>
@@ -77,28 +92,55 @@ export default {
         return {
             employees: [],
             showMessage: false,
-            message: ''
+            message: '',
+            search: null,
+            selectedDepartment: null,
+            departments: []
+        }
+    },
+    watch: {
+        search(){
+            this.getEmployees();
+        },
+        selectedDepartment(){
+            this.getEmployees();
         }
     },
     created() {
+        this.getDepartments();
         this.getEmployees();
     },
     methods: {
         getEmployees() {
-            axios.get("api/employees")
+            axios.get("api/employees", {
+                params: {
+                    search: this.search,
+                    department_id: this.selectedDepartment
+                }
+            })
                 .then(res => {
                     this.employees = res.data.data
                 }).catch(error => {
                 console.log(error);
             })
         },
+        getDepartments() {
+            axios
+                .get("/api/employees/departments")
+                .then(res => {
+                    this.departments = res.data;
+                })
+                .catch(error => {
+                    console.log(console.error);
+                });
+        },
         deleteEmployee(id) {
             axios.delete("api/employees/" + id)
-            .then(res=>{
-                this.showMessage=true;
-                this.message=res.data;
-                this.getEmployees();
-            });
+                .then(res => {
+                    this.showMessage = true;
+                    this.message = res.data;
+                    this.getEmployees();
+                });
         }
     }
 }
